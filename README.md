@@ -10,7 +10,7 @@ Service to calculate repayment plans for annuity loans.
 * Docker
 
 ## Usage
-1) Clone the repository from ([here](https://github.com/tdhraik/repayment-plan-generator.git))
+1) Clone the repository - ```git clone https://github.com/tdhraik/repayment-plan-generator.git```
 2) cd repayment-plan-generator
 3) Compile and run all the tests using ```./mvnw clean install```
 4) Run application locally using ```./mvnw spring-boot:run```
@@ -21,7 +21,7 @@ java -jar target/repayment-plan-generator-1.0.jar
 ```
 
 ## Usage(docker)
-1) Clone the repository from ([here](https://github.com/tdhraik/repayment-plan-generator.git))
+1) Clone the repository - ```git clone https://github.com/tdhraik/repayment-plan-generator.git```
 2) cd repayment-plan-generator
 3) Run the following commands...
  ```
