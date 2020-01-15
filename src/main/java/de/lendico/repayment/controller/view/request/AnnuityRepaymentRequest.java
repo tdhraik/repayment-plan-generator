@@ -7,9 +7,8 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,16 +17,16 @@ public class AnnuityRepaymentRequest {
 
     @NotNull
     @Range(min = 1, max = 120, message = "Number of instalments should be between 1 and 120")
-    private Integer numberOfInstalments;
+    private Integer duration;
 
     @NotNull
-    private Double nominalInterestRate;
+    private Double nominalRate;
 
     @NotNull
     @Range(min = 1L, message = "Total principal amount can not be less than 1.0")
-    private BigDecimal totalPrincipalAmount;
+    private BigDecimal loanAmount;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "YYYY-MM-dd")
-    private LocalDate payoutDate;
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+    private ZonedDateTime startDate;
 }

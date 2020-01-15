@@ -1,0 +1,5 @@
+spring:
+  application.name: repayment-plan-generator
+
+server:
+  port: 8080

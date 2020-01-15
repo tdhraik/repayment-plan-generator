@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +25,8 @@ import java.util.Map;
  */
 
 @RestController
-@Api(value = "/repayment-plan", description = "Calculate repayment plan for various loans", tags = "repayment-plan-generator-service")
+@RequestMapping("/generate-plan")
+@Api(value = "/generate-plan", description = "Calculate repayment plan for various loans", tags = "repayment-plan-generator-service")
 public class RepaymentPlanController implements SwaggerAnnotatedRepaymentPlanCtrl {
 
     private static final Logger log = LoggerFactory.getLogger(RepaymentPlanController.class);
@@ -36,8 +38,8 @@ public class RepaymentPlanController implements SwaggerAnnotatedRepaymentPlanCtr
     }
 
     @Override
-    @PostMapping(value = "/annuity", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AnnuityRepaymentPlanResponse getAnnuityRepaymentPlan(
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AnnuityRepaymentPlanResponse> getAnnuityRepaymentPlan(
             @Valid @RequestBody AnnuityRepaymentRequest annuityRepaymentReq) {
         log.info("Get annuity repayment plan called with request - {}", annuityRepaymentReq);
         return annuityService.getAnnuityRepaymentPlan(annuityRepaymentReq);
@@ -45,7 +47,7 @@ public class RepaymentPlanController implements SwaggerAnnotatedRepaymentPlanCtr
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
+    public Map<String, String> handleRequestValidation(
             MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {

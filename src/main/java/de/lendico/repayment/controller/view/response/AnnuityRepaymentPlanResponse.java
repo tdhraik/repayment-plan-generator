@@ -1,18 +1,27 @@
 package de.lendico.repayment.controller.view.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonPropertyOrder({
+        "borrowerPaymentAmount",
+        "date",
+        "initialOutstandingPrincipal",
+        "interest",
+        "principal",
+        "remainingOutstandingPrincipal"
+})
 @JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
 public class AnnuityRepaymentPlanResponse {
 
@@ -20,9 +29,8 @@ public class AnnuityRepaymentPlanResponse {
     private BigDecimal borrowerPaymentAmount;
 
     @ApiModelProperty(required = true)
-    @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Berlin")
-    private LocalDateTime date;
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+    private ZonedDateTime date;
 
     @ApiModelProperty(required = true)
     private BigDecimal initialOutstandingPrincipal;
@@ -38,7 +46,7 @@ public class AnnuityRepaymentPlanResponse {
 
     public static final class AnnuityRepaymentPlanResponseBuilder {
         private BigDecimal borrowerPaymentAmount;
-        private LocalDateTime date;
+        private ZonedDateTime date;
         private BigDecimal initialOutstandingPrincipal;
         private BigDecimal interest;
         private BigDecimal principal;
@@ -56,7 +64,7 @@ public class AnnuityRepaymentPlanResponse {
             return this;
         }
 
-        public AnnuityRepaymentPlanResponseBuilder withDate(LocalDateTime date) {
+        public AnnuityRepaymentPlanResponseBuilder withDate(ZonedDateTime date) {
             this.date = date;
             return this;
         }
