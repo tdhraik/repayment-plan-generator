@@ -27,11 +27,12 @@ public class AnnuityRepaymentServiceTest {
     @Test
     public void testGetAnnuityRepaymentPlan() {
         AnnuityRepaymentRequest request = new AnnuityRepaymentRequest(
-            24, 5.0, new BigDecimal(5000), ZonedDateTime.of(2018, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")));
+            24, 5.0, new BigDecimal(5000),
+                ZonedDateTime.of(2018, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")));
         List<AnnuityRepaymentPlanResponse> repaymentPlan = service.getAnnuityRepaymentPlan(request);
         assertThat(repaymentPlan.size()).isEqualTo(24);
         assertThat(repaymentPlan.get(0).getBorrowerPaymentAmount().toString()).isEqualTo("219.36");
         assertThat(repaymentPlan.get(0).getInterest().toString()).isEqualTo("20.84");
-        assertThat(repaymentPlan.get(23).getRemainingOutstandingPrincipal().toString()).isEqualTo("0");
+        assertThat(repaymentPlan.get(23).getRemainingOutstandingPrincipal().toString()).isEqualTo("0"); // last instalment
     }
 }

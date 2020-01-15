@@ -2,7 +2,7 @@ package de.lendico.repayment.service;
 
 import de.lendico.repayment.controller.view.request.AnnuityRepaymentRequest;
 import de.lendico.repayment.controller.view.response.AnnuityRepaymentPlanResponse;
-import de.lendico.repayment.util.RepaymentAnnuityHelper;
+import de.lendico.repayment.util.AnnuityRepaymentHelper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ import static de.lendico.repayment.controller.view.response.AnnuityRepaymentPlan
 public class AnnuityRepaymentService {
 
     public List<AnnuityRepaymentPlanResponse> getAnnuityRepaymentPlan(AnnuityRepaymentRequest annuityReq) {
-        BigDecimal annuityAmount = RepaymentAnnuityHelper.calculateAnnuity(annuityReq.getLoanAmount(),
+        BigDecimal annuityAmount = AnnuityRepaymentHelper.calculateAnnuity(annuityReq.getLoanAmount(),
                 annuityReq.getNominalRate(), annuityReq.getDuration());
         return IntStream
                 .rangeClosed(1, annuityReq.getDuration())
@@ -34,7 +34,7 @@ public class AnnuityRepaymentService {
     }
 
     private AnnuityRepaymentPlanResponse createAnnuityRepaymentResponse(AnnuityRepaymentRequest request, BigDecimal annuityAmount) {
-        BigDecimal interest = RepaymentAnnuityHelper.calculateInterest(request.getLoanAmount(), request.getNominalRate());
+        BigDecimal interest = AnnuityRepaymentHelper.calculateInterest(request.getLoanAmount(), request.getNominalRate());
         BigDecimal principal = annuityAmount.subtract(interest);
         BigDecimal remainingOutPrincipal = request.getLoanAmount().subtract(principal);
         return AnnuityRepaymentPlanResponseBuilder.anAnnuityRepaymentPlanResponse()
@@ -48,7 +48,7 @@ public class AnnuityRepaymentService {
     }
 
     private AnnuityRepaymentPlanResponse createLastInstalmentResponse(AnnuityRepaymentRequest request) {
-        BigDecimal interest = RepaymentAnnuityHelper.calculateInterest(request.getLoanAmount(), request.getNominalRate());
+        BigDecimal interest = AnnuityRepaymentHelper.calculateInterest(request.getLoanAmount(), request.getNominalRate());
         BigDecimal finalAnnuityAmount = request.getLoanAmount().add(interest);
         return AnnuityRepaymentPlanResponseBuilder.anAnnuityRepaymentPlanResponse()
                 .withBorrowerPaymentAmount(finalAnnuityAmount)

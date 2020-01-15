@@ -1,9 +1,17 @@
 package de.lendico.repayment.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Clock;
 
 @Configuration
 public class ApplicationConfig {
 
-    // TODO: 14/01/20 application wide configuration goes here
+    @Bean
+    @ConditionalOnMissingBean(Clock.class)
+    public Clock clock() {
+        return Clock.systemUTC();
+    }
 }

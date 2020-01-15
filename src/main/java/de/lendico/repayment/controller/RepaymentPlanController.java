@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Idea behind having a controller / resource layer is to map request, return response, and provide documentation for API consumers.
+ * Idea behind having a controller / resource layer is to map request, validate it, and return response.
  * Controllers should be light weight with almost no business logic.
  * Only validate request and forward it to relevant service layer / interactors ( in Domain Driven Design )
  */
