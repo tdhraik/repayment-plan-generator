@@ -20,11 +20,6 @@ Service to calculate repayment plans for annuity loans.
 java -jar target/repayment-plan-generator-1.0.jar
 ```
 
-## Usage(docker image as tar file)
-1) Download the tar file and run ```docker load < repayment-plan-generator-image.tar```
-2) repayment-plan-generator image should be visible using ```docker images```
-3) Spin up the docker container using ```docker run -p 8080:8080 repayment-plan-generator```
-
 ## Usage(docker)
 1) Clone the repository from ([here](https://github.com/tdhraik/repayment-plan-generator.git))
 2) cd repayment-plan-generator
